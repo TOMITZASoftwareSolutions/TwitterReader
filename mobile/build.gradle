@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "23.0.0 rc2"
+
+    defaultConfig {
+        applicationId "tss.com.twitterx"
+        minSdkVersion 22
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE.txt'
+    }
+}
+
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0].processResources.manifestFile
+        // if you have multiple outputs (when using splits), you may want to have other index than 0
+
+        // you should set your package name here if you are using different application IDs
+        // resourcePackageName "your.package.name"
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    wearApp project(':wear')
+    compile 'com.google.android.gms:play-services:+'
+    compile 'com.google.android.gms:play-services-wearable:7.5.0'
+
+    apt "org.androidannotations:androidannotations:3.3.1"
+    compile "org.androidannotations:androidannotations-api:3.3.1"
+
+    compile('com.twitter.sdk.android:twitter:1.6.0@aar') {
+        transitive = true;
+    }
+
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+
+
+    compile 'com.google.dagger:dagger:2.0.1'
+    androidTestCompile 'com.google.dagger:dagger:2.0.1'
+    apt 'com.google.dagger:dagger-compiler:2.0'
+    androidTestApt 'com.google.dagger:dagger-compiler:2.0'
+
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+
+    compile 'joda-time:joda-time:2.8.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    compile 'com.squareup.okhttp:okhttp:2.+'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.+'
+}

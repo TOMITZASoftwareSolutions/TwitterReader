@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="tss.com.twitterx"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name=".TwitterXApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity_"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".services.TwitterJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            />
+
+        <service
+            android:name=".services.TwitterPlayService"
+            />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8f1ee4b18a64e7f25738e55cc14ff8432002cb94"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+    </application>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+</manifest>
